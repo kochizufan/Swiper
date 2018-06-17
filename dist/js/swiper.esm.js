@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: June 5, 2018
+ * Released on: June 17, 2018
  */
 
 import { $, addClass, removeClass, hasClass, toggleClass, attr, removeAttr, data, transform, transition, on, off, trigger, transitionEnd, outerWidth, outerHeight, offset, css, each, html, text, is, index, eq, append, prepend, next, nextAll, prev, prevAll, parent, parents, closest, find, children, remove, add, styles } from 'dom7/dist/dom7.modular';
@@ -1801,6 +1801,7 @@ function onTouchMove (event) {
 
   const diffX = touches.currentX - touches.startX;
   const diffY = touches.currentY - touches.startY;
+  if (swiper.params.threshold && Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) < swiper.params.threshold) return;
 
   if (typeof data$$1.isScrolling === 'undefined') {
     let touchAngle;
@@ -1817,7 +1818,7 @@ function onTouchMove (event) {
   if (data$$1.isScrolling) {
     swiper.emit('touchMoveOpposite', e);
   }
-  if (typeof startMoving === 'undefined') {
+  if (typeof data$$1.startMoving === 'undefined') {
     if (touches.currentX !== touches.startX || touches.currentY !== touches.startY) {
       data$$1.startMoving = true;
     }

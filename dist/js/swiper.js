@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: June 5, 2018
+ * Released on: June 17, 2018
  */
 
 (function (global, factory) {
@@ -2739,6 +2739,7 @@
 
     var diffX = touches.currentX - touches.startX;
     var diffY = touches.currentY - touches.startY;
+    if (swiper.params.threshold && Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) < swiper.params.threshold) { return; }
 
     if (typeof data.isScrolling === 'undefined') {
       var touchAngle;
@@ -2755,7 +2756,7 @@
     if (data.isScrolling) {
       swiper.emit('touchMoveOpposite', e);
     }
-    if (typeof startMoving === 'undefined') {
+    if (typeof data.startMoving === 'undefined') {
       if (touches.currentX !== touches.startX || touches.currentY !== touches.startY) {
         data.startMoving = true;
       }
